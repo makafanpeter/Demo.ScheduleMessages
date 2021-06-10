@@ -49,7 +49,7 @@ namespace ScheduleMessages
             var SECRET_ACCESS_KEY = Configuration.GetValue<string>("AWS_SECRET_ACCESS_KEY");
              services.AddMassTransit(x =>
             {
-               
+                
                 x.AddDelayedMessageScheduler();
                 // add all consumers in the specified assembly
                 x.AddConsumer(typeof(ScheduleNotificationConsumer));
@@ -67,14 +67,12 @@ namespace ScheduleMessages
                         
                         // scope topics as well
                         h.EnableScopedTopics();
-                        
-                        cfg.UseDelayedMessageScheduler();
-                        
-                      
-                        
-                    });
 
+
+                    });
+                    cfg.UseDelayedMessageScheduler();
                     cfg.ConfigureEndpoints(context);
+                    
                 });
 
             });

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.Extensions.Logging;
 
@@ -17,10 +18,10 @@ namespace ScheduleMessages.Infrastructure.EventHandling
 
         public async Task Consume(ConsumeContext<ScheduleNotification> context)
         {
-            //Uri notificationService = new Uri("queue:notification-service");
+            Uri notificationService = new Uri("queue:notification-service");
              _logger.LogInformation("I am here !");
             await context.ScheduleSend<SendNotification>(
-                context.Message.DeliveryTime,
+                DateTime.UtcNow + TimeSpan.FromSeconds(130),
                 new 
                 {
                     EmailAddress = context.Message.EmailAddress,
